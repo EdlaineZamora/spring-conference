@@ -1,0 +1,35 @@
+plugins {
+	id 'org.springframework.boot' version '2.0.2.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter")
+	compile("org.springframework:spring-context-support:5.0.6.RELEASE")
+	compile('org.springframework.boot:spring-boot-starter-web') {
+		exclude group: "org.springframework", module: "spring-core"
+		exclude group: "com.fasterxml.jackson.core", module: "jackson-core"
+		exclude group: "com.fasterxml.jackson.core", module: "jackson-annotations"
+		exclude group: "com.fasterxml.jackson.core", module: "jackson-databind"
+	}
+	compile("com.fasterxml.jackson.core:jackson-databind:2.9.8")
+	runtime("ch.qos.logback:logback-classic:1.2.3")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	testCompile("org.junit.jupiter:junit-jupiter-api")
+	testCompile("org.springframework:spring-test:5.0.6.RELEASE")
+
+	testRuntime("org.junit.jupiter:junit-jupiter-engine")
+
+}
