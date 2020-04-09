@@ -15,8 +15,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,12 +35,13 @@ class ConferenceEndpointTest {
 
         List<ConferenceResponse> conferences = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, responseType).getBody();
 
-        assertEquals(1, conferences.size());
+        assertFalse(conferences.isEmpty());
 
         ConferenceResponse conference = conferences.get(0);
         assertAll("should return conference information",
-                () -> assertEquals(1, conference.id),
-                () -> assertEquals("TDC", conference.name));
+                () -> assertNotNull(conference.id),
+                () -> assertEquals("OReilly", conference.name),
+                () -> assertEquals("London", conference.place));
     }
 
 }
